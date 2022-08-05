@@ -1,0 +1,14 @@
+#!/bin/bash
+
+[ $# -eq 1 ] || { echo "Usage: $0 <task file>"; exit 1; }
+task_file=$1
+while [ -s ${task_file} ]; do
+	to_exec=$(head -n1 < ${task_file})
+	bash -c "$to_exec"
+	last_status=$?
+	[ ${last_status} -eq 0 ] || {
+		echo -e "Error while executing \"${to_exec}\"";
+		exit ${last_status};
+	}
+	sed -i -e 1d ${task_file}
+done
