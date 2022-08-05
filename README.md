@@ -24,3 +24,7 @@ Each line shall be executed within a Bash subshell; this means you can use all
 the Bash substitutions, line continuations and such. If the exit status of the
 line executed is 0, remove the current line and go on until the file is empty.
 If the exit status is not 0 then abort the execution with a error message.
+
+To interrupt the resumable task, just send a SIGTERM to it (and to all its
+possible sub-task created). Do not use CTRL-C as it may be captured by the
+underlying program.
